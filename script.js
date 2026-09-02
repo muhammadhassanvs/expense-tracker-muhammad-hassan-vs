@@ -7,11 +7,17 @@ const totalIncome = document.getElementById("total-income");
 const totalExpenses = document.getElementById("total-expenses");
 const balance = document.getElementById("balance");
 
+const typeFilter = document.getElementById("type-filter");
+const categoryFilter = document.getElementById("category-filter");
 
 // Store all transactions
 
 let transactions = [];
 
+// Filter transactions when the filter changes
+
+typeFilter.addEventListener("change", displayTransactions);
+categoryFilter.addEventListener("change", displayTransactions);
 
 // Add a new transaction
 
@@ -70,18 +76,41 @@ transactionForm.addEventListener("submit", function (event) {
 
 function displayTransactions() {
 
+    // Get selected filters
+
+    const selectedType = typeFilter.value;
+    const selectedCategory = categoryFilter.value;
+
+
+    // Filter transactions
+
+    const filteredTransactions = transactions.filter(function (transaction) {
+
+        const typeMatches =
+            selectedType === "all" ||
+            transaction.type === selectedType;
+
+        const categoryMatches =
+            selectedCategory === "all" ||
+            transaction.category === selectedCategory;
+
+        return typeMatches && categoryMatches;
+
+    });
+
+
     // Clear the current list
 
     transactionList.innerHTML = "";
 
 
-    // Show message if there are no transactions
+    // Show message if no transactions match the filter
 
-    if (transactions.length === 0) {
+    if (filteredTransactions.length === 0) {
 
         transactionList.innerHTML = `
             <p class="empty-message">
-                No transactions yet.
+                No transactions found.
             </p>
         `;
 
@@ -89,9 +118,9 @@ function displayTransactions() {
     }
 
 
-    // Display every transaction
+    // Display filtered transactions
 
-    transactions.forEach(function (transaction) {
+    filteredTransactions.forEach(function (transaction) {
 
         const transactionItem = document.createElement("div");
 
@@ -123,7 +152,6 @@ function displayTransactions() {
     });
 
 }
-
 
 // Calculate totals
 

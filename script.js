@@ -74,9 +74,9 @@ transactionForm.addEventListener("submit", function (event) {
 
 // Display transactions
 
-function displayTransactions() {
+// Display transactions
 
-    // Get selected filters
+function displayTransactions() {
 
     const selectedType = typeFilter.value;
     const selectedCategory = categoryFilter.value;
@@ -99,12 +99,12 @@ function displayTransactions() {
     });
 
 
-    // Clear the current list
+    // Clear transaction list
 
     transactionList.innerHTML = "";
 
 
-    // Show message if no transactions match the filter
+    // No transactions found
 
     if (filteredTransactions.length === 0) {
 
@@ -118,7 +118,7 @@ function displayTransactions() {
     }
 
 
-    // Display filtered transactions
+    // Display transactions
 
     filteredTransactions.forEach(function (transaction) {
 
@@ -127,8 +127,6 @@ function displayTransactions() {
         transactionItem.className = "transaction-item";
 
 
-        // Decide whether it is income or expense
-
         const sign = transaction.type === "income" ? "+" : "-";
 
         const typeClass =
@@ -136,19 +134,126 @@ function displayTransactions() {
 
 
         transactionItem.innerHTML = `
-            <div>
+            <div class="transaction-info">
+
                 <h3>${transaction.description}</h3>
-                <p>${transaction.category} • ${transaction.date}</p>
+
+                <p>
+                    ${transaction.category} • ${transaction.date}
+                </p>
+
             </div>
 
-            <div class="${typeClass}">
-                ${sign}₹${transaction.amount.toFixed(2)}
+
+            <div class="transaction-right">
+
+                <span class="${typeClass}">
+                    ${sign}₹${transaction.amount.toFixed(2)}
+                </span>
+
+                <button
+                    class="edit-button"
+                    onclick="editTransaction(${transaction.id})">
+                    Edit
+                </button>
+
+                <button
+                    class="delete-button"
+                    onclick="deleteTransaction(${transaction.id})">
+                    Delete
+                </button>
+
             </div>
         `;
 
 
         transactionList.appendChild(transactionItem);
 
+    });
+
+    
+
+}
+
+// Delete a transaction
+
+function deleteTransaction(id) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this transaction?"
+    );
+
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    // Remove transaction from the array
+
+    transactions = transactions.filter(function (transaction) {
+
+        return transaction.id !== id;
+
+    });
+
+
+    // Update the page
+
+    displayTransactions();
+    updateSummary();
+
+}
+
+// Edit a transaction
+
+function editTransaction(id) {
+
+    const transaction = transactions.find(function (transaction) {
+
+        return transaction.id === id;
+
+    });
+
+
+    if (!transaction) {
+        return;
+    }
+
+
+    // Put the old values back into the form
+
+    document.getElementById("type").value = transaction.type;
+
+    document.getElementById("amount").value = transaction.amount;
+
+    document.getElementById("category").value = transaction.category;
+
+    document.getElementById("date").value = transaction.date;
+
+    document.getElementById("description").value =
+        transaction.description;
+
+
+    // Remove the old transaction
+
+    transactions = transactions.filter(function (item) {
+
+        return item.id !== id;
+
+    });
+
+
+    // Update the page
+
+    displayTransactions();
+    updateSummary();
+
+
+    // Scroll to the form
+
+    document.querySelector(".form-section").scrollIntoView({
+        behavior: "smooth"
     });
 
 }

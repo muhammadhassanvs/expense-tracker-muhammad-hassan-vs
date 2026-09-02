@@ -246,3 +246,62 @@ header p {
     color: #d63c3c;
     font-weight: bold;
 }
+
+
+/* Transaction Right Side */
+
+.transaction-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* Edit Button */
+
+.edit-button {
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #ddd;
+}
+
+
+/* Delete Button */
+
+.delete-button {
+    border: none;
+    background-color: #ffe5e5;
+    color: #d63c3c;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ffd0d0;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .transaction-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .transaction-right {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+}

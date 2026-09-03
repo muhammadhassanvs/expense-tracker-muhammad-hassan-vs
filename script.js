@@ -14,6 +14,15 @@ const categoryFilter = document.getElementById("category-filter");
 
 let transactions = [];
 
+
+// Load saved transactions from Local Storage
+
+const savedTransactions = localStorage.getItem("transactions");
+
+if (savedTransactions) {
+    transactions = JSON.parse(savedTransactions);
+}
+
 // Filter transactions when the filter changes
 
 typeFilter.addEventListener("change", displayTransactions);
@@ -57,6 +66,11 @@ transactionForm.addEventListener("submit", function (event) {
     // Add transaction to the array
 
     transactions.push(transaction);
+
+    // Save the transaction
+
+    saveTransactions();
+
 
 
     // Update the page
@@ -197,6 +211,10 @@ function deleteTransaction(id) {
 
     });
 
+    // Save the updated transactions
+
+    saveTransactions();
+
 
     // Update the page
 
@@ -243,6 +261,10 @@ function editTransaction(id) {
 
     });
 
+
+    // Save the updated transactions
+
+    saveTransactions();
 
     // Update the page
 
@@ -297,3 +319,19 @@ function updateSummary() {
     balance.textContent = `₹${currentBalance.toFixed(2)}`;
 
 }
+
+// Save transactions to Local Storage
+
+function saveTransactions() {
+
+    localStorage.setItem(
+        "transactions",
+        JSON.stringify(transactions)
+    );
+
+}
+
+// Display saved transactions when the page opens
+
+displayTransactions();
+updateSummary();

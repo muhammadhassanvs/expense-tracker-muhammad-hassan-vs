@@ -10,6 +10,8 @@ const balance = document.getElementById("balance");
 const typeFilter = document.getElementById("type-filter");
 const categoryFilter = document.getElementById("category-filter");
 
+const formError = document.getElementById("form-error");
+
 // Store all transactions
 
 let transactions = [];
@@ -42,11 +44,40 @@ transactionForm.addEventListener("submit", function (event) {
     const date = document.getElementById("date").value;
     const description = document.getElementById("description").value;
 
+    // Clear previous error
 
-    // Check amount
+    formError.textContent = "";
+
+
+    // Validate the form
+
+    if (!type) {
+        formError.textContent = "Please select a transaction type.";
+        return;
+    }
 
     if (amount <= 0) {
-        alert("Please enter an amount greater than 0.");
+        formError.textContent = "Amount must be greater than 0.";
+        return;
+    }
+
+    if (!category) {
+        formError.textContent = "Please select a category.";
+        return;
+    }
+
+    if (!date) {
+        formError.textContent = "Please select a date.";
+        return;
+    }
+
+    if (!description.trim()) {
+        formError.textContent = "Please enter a description.";
+        return;
+    }
+
+    if (description.trim().length > 100) {
+        formError.textContent = "Description must be less than 100 characters.";
         return;
     }
 
@@ -82,6 +113,7 @@ transactionForm.addEventListener("submit", function (event) {
     // Clear the form
 
     transactionForm.reset();
+    formError.textContent = "";
 
 });
 

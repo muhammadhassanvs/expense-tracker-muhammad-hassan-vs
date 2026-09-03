@@ -15,9 +15,15 @@ const formError = document.getElementById("form-error");
 const monthFilter = document.getElementById("month-filter");
 const monthlyExpenses = document.getElementById("monthly-expenses");
 
+const addButton = document.querySelector(".add-button");
+
 // Store all transactions
 
 let transactions = [];
+
+// Store the ID of the transaction being edited
+
+let editingId = null;
 
 
 // Load saved transactions from Local Storage
@@ -101,9 +107,31 @@ transactionForm.addEventListener("submit", function (event) {
     };
 
 
-    // Add transaction to the array
+    // Check if we are editing a transaction
 
-    transactions.push(transaction);
+    if (editingId !== null) {
+
+        transactions = transactions.map(function (item) {
+
+            if (item.id === editingId) {
+                return transaction;
+            }
+
+            return item;
+
+        });
+
+        // Exit edit mode
+
+        editingId = null;
+
+    } else {
+
+        // Add a new transaction
+
+        transactions.push(transaction);
+
+    }
 
     // Save the transaction
 
@@ -122,6 +150,7 @@ transactionForm.addEventListener("submit", function (event) {
 
     transactionForm.reset();
     formError.textContent = "";
+    addButton.textContent = "Add Transaction";
 
 });
 
@@ -268,9 +297,9 @@ function deleteTransaction(id) {
 
 function editTransaction(id) {
 
-    const transaction = transactions.find(function (transaction) {
+    const transaction = transactions.find(function (item) {
 
-        return transaction.id === id;
+        return item.id === id;
 
     });
 
@@ -280,7 +309,14 @@ function editTransaction(id) {
     }
 
 
-    // Put the old values back into the form
+    // Store the ID of the transaction being edited
+
+    editingId = id;
+
+    addButton.textContent = "Update Transaction";
+
+
+    // Put transaction values into the form
 
     document.getElementById("type").value = transaction.type;
 
@@ -292,26 +328,6 @@ function editTransaction(id) {
 
     document.getElementById("description").value =
         transaction.description;
-
-
-    // Remove the old transaction
-
-    transactions = transactions.filter(function (item) {
-
-        return item.id !== id;
-
-    });
-
-
-    // Save the updated transactions
-
-    saveTransactions();
-
-    // Update the page
-
-    displayTransactions();
-    updateSummary();
-    updateMonthlySummary();
 
 
     // Scroll to the form

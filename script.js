@@ -10,6 +10,8 @@ const balance = document.getElementById("balance");
 const typeFilter = document.getElementById("type-filter");
 const categoryFilter = document.getElementById("category-filter");
 
+const transactionMonth = document.getElementById("transaction-month");
+
 const formError = document.getElementById("form-error");
 
 const monthFilter = document.getElementById("month-filter");
@@ -42,6 +44,7 @@ monthFilter.addEventListener("change", updateMonthlySummary);
 
 typeFilter.addEventListener("change", displayTransactions);
 categoryFilter.addEventListener("change", displayTransactions);
+transactionMonth.addEventListener("change", displayTransactions);
 
 // Add a new transaction
 
@@ -163,6 +166,7 @@ function displayTransactions() {
 
     const selectedType = typeFilter.value;
     const selectedCategory = categoryFilter.value;
+    const selectedMonth = transactionMonth.value;
 
 
     // Filter transactions
@@ -177,7 +181,11 @@ function displayTransactions() {
             selectedCategory === "all" ||
             transaction.category === selectedCategory;
 
-        return typeMatches && categoryMatches;
+        const monthMatches =
+        selectedMonth === "" ||
+        transaction.date.startsWith(selectedMonth);    
+
+        return typeMatches && categoryMatches && monthMatches;
 
     });
 

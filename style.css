@@ -423,4 +423,34 @@ header p {
         width: 100%;
     }
 
+    .month-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .month-filter input {
+        width: 100%;
+    }
+
+
+}
+
+/* Transaction Month Filter */
+
+.month-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.month-filter label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.month-filter input {
+    padding: 10px;
+    border: 1px solid #d0d5da;
+    border-radius: 7px;
+    font-size: 14px;
 }

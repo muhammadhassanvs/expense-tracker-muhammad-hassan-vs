@@ -12,6 +12,9 @@ const categoryFilter = document.getElementById("category-filter");
 
 const formError = document.getElementById("form-error");
 
+const monthFilter = document.getElementById("month-filter");
+const monthlyExpenses = document.getElementById("monthly-expenses");
+
 // Store all transactions
 
 let transactions = [];
@@ -24,6 +27,10 @@ const savedTransactions = localStorage.getItem("transactions");
 if (savedTransactions) {
     transactions = JSON.parse(savedTransactions);
 }
+
+// Update monthly summary when month changes
+
+monthFilter.addEventListener("change", updateMonthlySummary);
 
 // Filter transactions when the filter changes
 
@@ -108,6 +115,7 @@ transactionForm.addEventListener("submit", function (event) {
 
     displayTransactions();
     updateSummary();
+    updateMonthlySummary();
 
 
     // Clear the form
@@ -252,6 +260,7 @@ function deleteTransaction(id) {
 
     displayTransactions();
     updateSummary();
+    updateMonthlySummary();
 
 }
 
@@ -302,6 +311,7 @@ function editTransaction(id) {
 
     displayTransactions();
     updateSummary();
+    updateMonthlySummary();
 
 
     // Scroll to the form
@@ -363,7 +373,49 @@ function saveTransactions() {
 
 }
 
+// Calculate monthly expenses
+
+function updateMonthlySummary() {
+
+    const selectedMonth = monthFilter.value;
+
+    let total = 0;
+
+
+    // If no month is selected
+
+    if (!selectedMonth) {
+
+        monthlyExpenses.textContent = "₹0.00";
+
+        return;
+    }
+
+
+    // Check every transaction
+
+    transactions.forEach(function (transaction) {
+
+        if (
+            transaction.type === "expense" &&
+            transaction.date.startsWith(selectedMonth)
+        ) {
+
+            total += transaction.amount;
+
+        }
+
+    });
+
+
+    // Display the total
+
+    monthlyExpenses.textContent = `₹${total.toFixed(2)}`;
+
+}
+
 // Display saved transactions when the page opens
 
 displayTransactions();
 updateSummary();
+updateMonthlySummary();

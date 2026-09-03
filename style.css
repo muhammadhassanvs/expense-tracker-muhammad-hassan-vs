@@ -1,4 +1,6 @@
-/* Basic Reset */
+/* =========================
+   Basic Reset
+========================= */
 
 * {
     margin: 0;
@@ -14,33 +16,40 @@ body {
 }
 
 
-/* Main Container */
+/* =========================
+   Main Container
+========================= */
 
 .container {
-    width: 90%;
+    width: 92%;
     max-width: 1100px;
-    margin: 30px auto;
+    margin: 40px auto;
 }
 
 
-/* Header */
+/* =========================
+   Header
+========================= */
 
 header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 header h1 {
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 8px;
 }
 
 header p {
     color: #666;
+    font-size: 15px;
 }
 
 
-/* Summary Cards */
+/* =========================
+   Summary Cards
+========================= */
 
 .summary {
     display: grid;
@@ -52,20 +61,32 @@ header p {
 .summary-card {
     background-color: white;
     padding: 25px;
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
 }
 
 .summary-card h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 15px;
+    margin-bottom: 12px;
     color: #666;
 }
 
 .summary-card p {
-    font-size: 25px;
+    font-size: 26px;
     font-weight: bold;
+}
+
+.income-card {
+    border-top: 4px solid #168a45;
+}
+
+.expense-card {
+    border-top: 4px solid #d63c3c;
+}
+
+.balance-card {
+    border-top: 4px solid #2563eb;
 }
 
 .income-card p {
@@ -81,24 +102,31 @@ header p {
 }
 
 
-/* Form Section */
+/* =========================
+   Common Sections
+========================= */
 
 .form-section,
-.transactions-section {
+.transactions-section,
+.monthly-summary {
     background-color: white;
-    padding: 25px;
-    border-radius: 10px;
+    padding: 28px;
+    border-radius: 12px;
     margin-bottom: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
 }
 
 .form-section h2,
-.transactions-section h2 {
-    margin-bottom: 20px;
+.transactions-section h2,
+.monthly-summary h2 {
+    font-size: 20px;
+    margin-bottom: 22px;
 }
 
 
-/* Form */
+/* =========================
+   Form
+========================= */
 
 .form-row {
     display: flex;
@@ -112,7 +140,7 @@ header p {
 
 .form-group label {
     display: block;
-    margin-bottom: 7px;
+    margin-bottom: 8px;
     font-weight: bold;
     font-size: 14px;
 }
@@ -121,9 +149,9 @@ header p {
 .form-group select,
 .filters select {
     width: 100%;
-    padding: 11px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #d0d5da;
+    border-radius: 7px;
     font-size: 14px;
     background-color: white;
 }
@@ -136,16 +164,20 @@ header p {
 }
 
 
-/* Add Button */
+/* =========================
+   Add / Update Button
+========================= */
 
 .add-button {
     border: none;
     background-color: #2563eb;
     color: white;
-    padding: 12px 20px;
-    border-radius: 6px;
+    padding: 12px 22px;
+    border-radius: 7px;
     cursor: pointer;
     font-size: 15px;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
 .add-button:hover {
@@ -153,7 +185,59 @@ header p {
 }
 
 
-/* Transaction Header */
+/* =========================
+   Form Error
+========================= */
+
+.form-error {
+    color: #d63c3c;
+    font-size: 14px;
+    margin-bottom: 12px;
+    min-height: 18px;
+}
+
+
+/* =========================
+   Monthly Summary
+========================= */
+
+.month-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.month-selector label {
+    font-weight: bold;
+}
+
+.month-selector input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.monthly-result {
+    padding: 20px;
+    background-color: #f4f6f8;
+    border-radius: 8px;
+}
+
+.monthly-result p {
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.monthly-result h3 {
+    font-size: 25px;
+    color: #d63c3c;
+}
+
+
+/* =========================
+   Transaction Header
+========================= */
 
 .section-header {
     display: flex;
@@ -169,29 +253,123 @@ header p {
 
 .filters select {
     width: auto;
+    min-width: 160px;
 }
 
 
-/* Empty Message */
+/* =========================
+   Transaction Item
+========================= */
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-info h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.transaction-info p {
+    font-size: 13px;
+    color: #777;
+}
+
+.transaction-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.transaction-right .income,
+.transaction-right .expense {
+    font-weight: bold;
+    min-width: 100px;
+    text-align: right;
+}
+
+.transaction-right .income {
+    color: #168a45;
+}
+
+.transaction-right .expense {
+    color: #d63c3c;
+}
+
+
+/* =========================
+   Edit Button
+========================= */
+
+.edit-button {
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #ddd;
+}
+
+
+/* =========================
+   Delete Button
+========================= */
+
+.delete-button {
+    border: none;
+    background-color: #ffe5e5;
+    color: #d63c3c;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ffd0d0;
+}
+
+
+/* =========================
+   Empty Message
+========================= */
 
 .empty-message {
     text-align: center;
     color: #777;
-    padding: 30px;
+    padding: 35px 10px;
 }
 
 
-/* Mobile Responsive Design */
+/* =========================
+   Mobile Responsive
+========================= */
 
 @media (max-width: 768px) {
 
     .container {
-        width: 95%;
-        margin: 20px auto;
+        width: 94%;
+        margin: 25px auto;
+    }
+
+    header h1 {
+        font-size: 30px;
     }
 
     .summary {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     .form-row {
@@ -213,95 +391,6 @@ header p {
         width: 100%;
     }
 
-}
-
-
-
-/* Transaction Item */
-
-.transaction-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.transaction-item h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.transaction-item p {
-    font-size: 13px;
-    color: #777;
-}
-
-.transaction-item .income {
-    color: #168a45;
-    font-weight: bold;
-}
-
-.transaction-item .expense {
-    color: #d63c3c;
-    font-weight: bold;
-}
-
-
-/* Transaction Right Side */
-
-.transaction-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-
-/* Edit Button */
-
-.edit-button {
-    border: none;
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 7px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.edit-button:hover {
-    background-color: #ddd;
-}
-
-
-/* Delete Button */
-
-.delete-button {
-    border: none;
-    background-color: #ffe5e5;
-    color: #d63c3c;
-    padding: 7px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.delete-button:hover {
-    background-color: #ffd0d0;
-}
-
-/* Form Error */
-
-.form-error {
-    color: #d63c3c;
-    font-size: 14px;
-    margin-bottom: 12px;
-    min-height: 18px;
-}
-
-
-/* Mobile */
-
-@media (max-width: 600px) {
-
     .transaction-item {
         flex-direction: column;
         align-items: flex-start;
@@ -313,59 +402,17 @@ header p {
         flex-wrap: wrap;
     }
 
-}
+    .transaction-right .income,
+    .transaction-right .expense {
+        min-width: auto;
+        margin-right: auto;
+    }
 
-/* Monthly Expense Summary */
-
-.monthly-summary {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.monthly-summary h2 {
-    margin-bottom: 20px;
-}
-
-.month-selector {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.month-selector label {
-    font-weight: bold;
-}
-
-.month-selector input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-.monthly-result {
-    padding: 20px;
-    background-color: #f4f6f8;
-    border-radius: 8px;
-}
-
-.monthly-result p {
-    color: #666;
-    margin-bottom: 5px;
-}
-
-.monthly-result h3 {
-    font-size: 24px;
-    color: #d63c3c;
-}
-
-
-/* Mobile */
-
-@media (max-width: 600px) {
+    .form-section,
+    .transactions-section,
+    .monthly-summary {
+        padding: 20px;
+    }
 
     .month-selector {
         flex-direction: column;
